@@ -1,31 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Recipes from './Recipes';
-import AddRecipe from './AddRecipe';
+import ToDos from './ToDos';
+import AddToDo from './AddToDo';
 import Title from './Title.js';
 
-var myRecipes = [
+var myToDos = [
   { 
-    "name": "Banana Bread",
-    "ingredients": ["Bananas", "Flour", "Eggs", "Sugar", "Love"],
-    "directions": ["Set oven to 350 degrees", "Combine all ingredients", "Bake for 30 minutes"],
+    "name": "To do task 1",
+    "desc": "this is the description for task 1",
+    "checklist": [{"item": "checklist item 1", "done": false }, {"item": "checklist item 2", "done": false}],
     "id": 1
   },
   {
-    "name": "Sugar Cookies",
-    "ingredients": ["Sugar", "Flour", "Eggs", "Love"],
-    "directions": ["Set oven to 400 degrees", "Combine ingredients", "Bake for 10 minutes", "Serve hot"],
-    "id": 2
+    "name": "To do task 2",
+    "desc": "this is the description for task 2",
+    "checklist": [{"item": "checklist item 3", "done": true }, {"item": "checklist item 4", "done": false}],
+    "id": 1
   },
   {
-    "name": "Chocolate Brownies",
-    "ingredients": ["Chocolate", "Sugar", "Other stuff"],
-    "directions": ["Set oven to 450 degrees", "Combine ingredients", "Pour batter in pan", "Bake for 45 minutes", "Let cool for 10 minutes"],
-    "id": 3
+    "name": "To do task 3",
+    "desc": "this is the description for task 3",
+    "checklist": [{"item": "checklist item 5", "done": false }, {"item": "checklist item 6", "done": true}],
+    "id": 1
   }
 ];
 
-var name = "My Recipe Box";
+var name = "My To Do List";
 
 function isLocalStorageSupported(){
   try {
@@ -43,46 +43,46 @@ function isLocalStorageSupported(){
 var App = React.createClass({
   setInitialState: function(){
     return {
-      recipes: [],
+      todo: [],
       name: ""
     };
   },
   componentWillMount: function(){
     if (isLocalStorageSupported){
-      if(localStorage["recipes"] === undefined){
-        localStorage.setItem("recipes", JSON.stringify(myRecipes));
+      if(localStorage["todo"] === undefined){
+        localStorage.setItem("todo", JSON.stringify(myToDos));
         localStorage.setItem("name", name);
       }
       else {
-        var retrievedData = localStorage.getItem("recipes");
+        var retrievedData = localStorage.getItem("todo");
         var retrieveName = localStorage.getItem("name");
-        myRecipes = JSON.parse(retrievedData);
+        myToDos = JSON.parse(retrievedData);
         name = retrieveName;
       }
     }    
-    this.setState({ recipes: myRecipes,
+    this.setState({ todo: myToDos,
                     name: name  
     });
   },
-  addRecipe: function(recipe){
-    let newRecipes = this.state.recipes.concat(recipe);
-    this.setState({ recipes: newRecipes});
-    localStorage.setItem("recipes", JSON.stringify(newRecipes));
+  addToDo: function(toDo){
+    let newToDo = this.state.todo.concat(toDo);
+    this.setState({ todo: newToDo});
+    localStorage.setItem("todo", JSON.stringify(newToDo));
     
   },
-  editRecipe: function(recipe, id){
-    let recipeIndex = this.state.recipes.findIndex((recipe)=>recipe.id == id);
-    let oldRecipes = this.state.recipes;
-    oldRecipes[recipeIndex] = recipe;
-    this.setState({ recipes: oldRecipes});
-    localStorage.setItem("recipes", JSON.stringify(oldRecipes));
+  editToDo: function(todo, id){
+    let toDoIndex = this.state.todo.findIndex((todo)=>todo.id == id);
+    let oldToDo = this.state.todo;
+    oldToDo[toDoIndex] = todo;
+    this.setState({ todo: oldToDo});
+    localStorage.setItem("todo", JSON.stringify(oldToDo));
   },
-  deleteRecipe: function(id){
-    let recipeIndex = this.state.recipes.findIndex((recipe)=>recipe.id == id);
-    let prevRecipeState = this.state.recipes;
-    prevRecipeState.splice(recipeIndex, 1);
-    this.setState({recipes: prevRecipeState});
-    localStorage.setItem("recipes", JSON.stringify(prevRecipeState));
+  deleteToDo: function(id){
+    let toDoIndex = this.state.todo.findIndex((todo)=>todo.id == id);
+    let prevToDoState = this.state.todo;
+    prevToDoState.splice(toDoIndex, 1);
+    this.setState({todo: prevToDoState});
+    localStorage.setItem("todo", JSON.stringify(prevToDoState));
   },
   handleNameChange: function(name){
     this.setState({name: name});
@@ -93,10 +93,10 @@ var App = React.createClass({
     return (
     <div>
         <Title nameCallback={this.handleNameChange} name={this.state.name}/>
-        <div id="recipeContainer">
-          <Recipes   recipes={this.state.recipes} editRecipe={this.editRecipe} deleteRecipe={this.deleteRecipe} />
+        <div id="toDoContainer">
+          <ToDos   todos={this.state.todo} editToDo={this.editToDo} deleteToDo={this.deleteToDo} />
           
-          <AddRecipe addRecipe={this.addRecipe} recipes={this.state.recipes}/>  
+          <AddToDo addToDo={this.addToDo} todos={this.state.todo}/>  
         </div>
       </div>
     );

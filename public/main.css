@@ -15,21 +15,21 @@ body {
     #title a:hover {
       cursor: pointer; }
 
-#recipeContainer {
+#toDoContainer {
   margin-left: auto;
   margin-right: auto;
   width: 65%; }
 
-#ingredientTitle, #directionsTitle {
+#descTitle, #checklistTitle {
   text-align: center; }
 
-.ingredients, .directions {
+.desc, .checklist {
   font-size: 150%; }
 
 #addButton {
   margin-top: 50px; }
 
-.recipes {
+.todos {
   border-radius: 10px;
   vertical-align: top;
   border: 2px solid black;
@@ -41,9 +41,9 @@ body {
 .debuttons {
   display: inline-block; }
 
-.recipeName {
+.toDoName {
   margin-top: 0px; }
-  .recipeName:hover {
+  .toDoName:hover {
     cursor: pointer; }
 
 #buttonContainer {

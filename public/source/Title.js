@@ -24,7 +24,7 @@ var Title = React.createClass({
             <h1 id="title"><a onClick={this.open}>{this.props.name}</a></h1>
             <Modal show={this.state.showTitle} onHide={this.close}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Edit Recipe Box Title</Modal.Title>
+                    <Modal.Title>Edit To Do Box Title</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form horizontal>
