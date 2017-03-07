@@ -8,7 +8,7 @@ function randomIdGenerator(){
 }
 
 
-var AddRecipe = React.createClass({
+var AddToDo = React.createClass({
   getInitialState: function(){
     return { showAdd: false };
   },
@@ -21,56 +21,65 @@ var AddRecipe = React.createClass({
   handleSubmit: function(event){
     event.preventDefault();
     this.setState({ showAdd: false });
-    var name = document.getElementById("formHorizontalRecipeName").value;
-    var ingredients = document.getElementById("formHorizontalRecipeIngredients").value;
-    var directions = document.getElementById("formHorizontalRecipeDirections").value;
+    var name = document.getElementById("formHorizontalToDoName").value;
+    var desc = document.getElementById("formHorizontalToDoDesc").value;
+    var array = document.getElementById("formHorizontalToDoChecklist").value.split(/\n/);
+    var checklistArray = [];
+    for(var x = 0; x < array.length; x++){
+        var obj = {
+          "item": array[x],
+          "done": false
+        };
+        checklistArray.push(obj);
+    }
+    
     var id = randomIdGenerator();
-    var recipe = {
+    var todo = {
     "name": name,
-    "ingredients": ingredients.split(','),
-    "directions": directions.split(','),
+    "desc": desc,
+    "checklist": checklistArray,
     "id": id
     };
-    this.props.addRecipe(recipe);
+    this.props.addToDo(todo);
   },
   render: function(){
     return (
       <div>
-      <Button id="addButton" bsStyle="primary" bsSize="large" onClick={this.open}>Add Recipe</Button>
+      <Button id="addButton" bsStyle="primary" bsSize="large" onClick={this.open}>Add ToDo</Button>
       <Modal show={this.state.showAdd} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>Add Recipe</Modal.Title>
+            <Modal.Title>Add ToDo</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form horizontal>
-              <FormGroup controlId="formHorizontalRecipeName">
+              <FormGroup controlId="formHorizontalToDoName">
                 <Col sm={2}>
                   Name:
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" placeholder="Recipe Name"/>
+                  <FormControl type="text" placeholder="To Do Name"/>
                 </Col>
               </FormGroup>
-              <FormGroup controlId="formHorizontalRecipeIngredients">
+              <FormGroup controlId="formHorizontalToDoDesc">
                 <Col sm={2}>
-                  Ingredients:
+                  Description:
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" placeholder="Ingredients separated by commas" />
+                  <FormControl type="text" placeholder="Short description" />
                 </Col>
               </FormGroup>
-              <FormGroup controlId="formHorizontalRecipeDirections">
+              <FormGroup controlId="formHorizontalToDoChecklist">
                 <Col sm={2}>
-                  Directions:
+                  Checklist:
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" placeholder="Directions separated by commas" />
+                  <FormControl type="text" componentClass="textarea" placeholder="Checklist separated by line" />
                 </Col>
               </FormGroup>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleSubmit}>Add Recipe</Button>
+            <Button onClick={this.handleSubmit}>Add ToDo</Button>
             <Button onClick={this.close}>Close</Button>
           </Modal.Footer>
         </Modal>
@@ -79,4 +88,4 @@ var AddRecipe = React.createClass({
    }
 });
 
-export default AddRecipe;
+export default AddToDo;

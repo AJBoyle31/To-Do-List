@@ -1,6 +1,5 @@
 import React from 'react';
-//need to change ingredients
-import Ingredients from './Ingredients';
+//import Description from './Description';
 import EditToDo from './EditToDo';
 import {Button, ButtonToolbar} from 'react-bootstrap';
 import Checklist from './Checklist.js';
@@ -21,12 +20,12 @@ var ToDo = React.createClass({
       event.preventDefault();
   },
   render: function(){
-    let toDoTitle, desc, toDoButton, checklistTitle, checklist;
+    let descTitle, desc, toDoButton, checklistTitle, checklist;
     let num=0;
     
     if (this.state.showToDo) {
       
-      toDoTitle = <h3 id="toDoTitle">Description</h3>;
+      descTitle = <h3 id="descTitle">Description</h3>;
       desc = this.props.desc;
       
       checklistTitle = <h3 id="checklistTitle">Checklist</h3>;
@@ -51,11 +50,11 @@ var ToDo = React.createClass({
           <h2 className="toDoName">{this.props.name}</h2>
         </div>
         
-        {toDoTitle}
-        <ul>{desc}</ul>
+        {descTitle}
+        <h3>{desc}</h3>
       
         {checklistTitle}
-        <ol>{checklist}</ol>
+        <ul>{checklist}</ul>
         {toDoButton}
         
       </div>
