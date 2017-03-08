@@ -1,5 +1,4 @@
 import React from 'react';
-//import Description from './Description';
 import EditToDo from './EditToDo';
 import {Button, ButtonToolbar} from 'react-bootstrap';
 import Checklist from './Checklist.js';

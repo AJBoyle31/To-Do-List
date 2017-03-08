@@ -38,8 +38,6 @@ function isLocalStorageSupported(){
   }
 }
 
-
-
 var App = React.createClass({
   setInitialState: function(){
     return {
